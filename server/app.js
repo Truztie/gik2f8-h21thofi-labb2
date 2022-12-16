@@ -113,33 +113,28 @@ app.delete('/tasks/:id', async (req, res) => {
   }
 });
 
-app.patch('/tasks/:id', async (req, res) => {
-  console.log(req);
+app.patch("/tasks/:id", async (req, res) => {
   try {
-    /* För att nå egenskaper tagna ur url:en  använder man req.params och sedan namnet som man gett egenskapen, i detta fall id, då vi skrev :id. */
     const id = req.params.id;
-    /* På samma sätt som vid post, hämtas filens befintliga innehåll ut med hjälp av fs.readFile, som inväntas med await. */
-    const listBuffer = await fs.readFile('./tasks.json');
-    /* Innehållet i filen parsas till JavaScript för att kunna behandlas vidare i kod. */
+    const updatedTask = req.body;
+
+    const listBuffer = await fs.readFile("./tasks.json");
     const currentTasks = JSON.parse(listBuffer);
-    /* Först en kontroll om det ens finns något i filen, annars finns ju inget att ta bort */
     if (currentTasks.length > 0) {
-      /* Om det finns något i filen görs här en hel del i samma anrop: 
-      1. De befintliga uppgifterna (currentTasks), filtreras så att den uppgift med det id som skickades in filtreras bort och endast de uppgifter som inte hade det id:t är kvar.
-      2. Arrayen med alla uppgifter utom den med det id som skickades in görs om till en sträng med JSON.stringify
-      3. Denna sträng sparas slutgilgingen till filen tasks.json, så att det kommer att finnas en uppdaterad lista som inte längre innehåller uppgiften med det id som skickades in via url:en. */
-      await fs.writeFile(
-        './tasks.json',
-        JSON.stringify(currentTasks.id)
-      );
-      /* När den nya listan har skrivits till fil skickas ett success-response  */
-      res.send({ message: `Uppgift med id ${id} uppdaterades` });
+      const updatedList = currentTasks.map((task) => {
+        if (task.id == id) {
+          return { ...task, ...updatedTask };
+        } else {
+          return task;
+        }
+      });
+
+      await fs.writeFile("./tasks.json", JSON.stringify(updatedList));
+      res.send({ message: `Uppgift med id ${id} uppdaterad` });
     } else {
-      /* Om det inte fanns något i filen sedan tidigare skickas statuskod 404. 404 används här för att det betyder "Not found", och det stämmer att den uppgift som man ville ta bort inte kunde hittas om listan är tom. Vi har dock inte kontrollerat inuti en befintlig lista om det en uppgift med det id som man önskar ta bort faktiskt finns. Det hade man också kunnat göra. */
-      res.status(404).send({ error: 'Ingen uppgift att uppdatera' });
+      res.status(404).send({ error: "Ingen uppgift att uppdatera" });
     }
   } catch (error) {
-    /* Om något annat fel uppstår, skickas statuskod 500, dvs. ett generellt serverfel, tillsammans med information om felet.  */
     res.status(500).send({ error: error.stack });
   }
 });

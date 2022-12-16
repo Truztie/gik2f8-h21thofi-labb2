@@ -271,9 +271,11 @@ Funktionen bör ta emot ett id som skickas från <li>-elementet.
 function updateTask(id){
   const checkBox = document.getElementById(`checkBox${id}`);
   if(checkBox.checked == true){
-    const data = {"completed": true};
-    api.update(id, data).then((lol) => console.log(lol));
-  }else{
+    const complete = {"completed": true};
+    api.update(id, complete);
+  }else if ( checkBox.checked == false){
+    const unfinished = {"completed": false};
+    api.update(id, unfinished);
 
   }
 }

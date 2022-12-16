@@ -120,7 +120,8 @@ class Api {
         'content-type': 'application/json'
       }
     })
-      .then((result) => result)
+      .then((result) => result.json()
+      .then((print) => console.log(print)))
       .catch((err) => console.log(err));
   }
   /*   
