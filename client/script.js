@@ -221,7 +221,8 @@ function renderTask({ id, title, description, dueDate }) {
   let html = `
     <li class="select-none mt-2 py-2 border-b border-amber-300">
       <div class="flex items-center">
-        <h3 class="mb-3 flex-1 text-xl font-bold text-pink-800 uppercase">${title}</h3>
+        <input type="checkbox" onclick="updateTask(${id})" id="checkBox${id}"/>
+        <h3 class=" pl-4 mb-3 flex-1 text-xl font-bold text-pink-800 uppercase">${title}</h3>
         <div>
           <span>${dueDate}</span>
           <button onclick="deleteTask(${id})" class="inline-block bg-amber-500 text-xs text-amber-900 border border-white px-3 py-1 rounded-md ml-2">Ta bort</button>
@@ -267,6 +268,15 @@ function deleteTask(id) {
   
 Funktionen bör ta emot ett id som skickas från <li>-elementet.
 */
+function updateTask(id){
+  const checkBox = document.getElementById(`checkBox${id}`);
+  if(checkBox.checked == true){
+    const data = {"completed": true};
+    api.update(id, data).then((lol) => console.log(lol));
+  }else{
+
+  }
+}
 
 /* Inuti funktionen kan ett objekt skickas till api-metoden update. Objektet ska som minst innehålla id på den uppgift som ska förändras, samt egenskapen completed som true eller false, beroende på om uppgiften markerades som färdig eller ofärdig i gränssnittet. 
 
