@@ -232,7 +232,7 @@ function renderTask({ id, title, description, dueDate, completed}) {
   /* Lite kort om vad HTML-koden innehåller. Det mesta är bara struktur och Tailwind-styling enligt eget tycke och smak. Värd att nämna extra är dock knappen, <button>-elementet, en bit ned. Där finns ett onclick-attribut som kopplar en eventlyssnare till klickeventet. Eventlyssnaren här heter onDelete och den får med sig egenskapen id, som vi fått med oss från task-objektet. Notera här att det går bra att sätta parenteser och skicka in id på detta viset här, men man fick inte sätta parenteser på eventlyssnare när de kopplades med addEventListener (som för formulärfälten högre upp i koden). En stor del av föreläsning 3 rörande funktioner och event förklarar varför man inte får sätta parenteser på callbackfunktioner i JavaScriptkod. 
   När eventlyssnaren kopplas till knappen här nedanför, görs det däremot i HTML-kod och inte JavaScript. Man sätter ett HTML-attribut och refererar till eventlyssnarfunktionen istället. Då fungerar det annorlunda och parenteser är tillåtna. */
   let html = `
-    <li class="select-none mt-2 p-3 ${completed ? "bg-emerald-200" : ""} rounded-md border-2 border-violet-400 "
+    <li class="select-none mt-2 p-3 ${completed ? "bg-emerald-200" : ""} rounded-md border-2 border-violet-400 hover:border-fuchsia-500"
               style="box-shadow:2px 2px 8px #3b3b3b" >
       <div class="flex items-center">
         <div id="inputContainer${id}">
