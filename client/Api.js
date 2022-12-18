@@ -89,7 +89,7 @@ class Api {
         res.header('Access-Control-Allow-Methods', '*'); (Method->Methods, alltså)  */
 
     /* Log för att se att rätt uppgift är på väg att tas bort */
-    console.log(`Removing task with id ${id}`);
+    console.log(`Removing task with id: ${id}.`);
 
     /* Här behövs, precis som vid POST, lite mer inställningar. Fetch behöver dock inte heller här ett requestobjekt. Det går bra att skicka de sakerna som man skulle ha skickat till requestobjektets konstruktor direkt till fetch-funktionen. 
 
@@ -120,8 +120,8 @@ class Api {
         'content-type': 'application/json'
       }
     })
-      .then((result) => result.json()
-      .then((print) => console.log(print)))
+      .then((response) => response.json()
+      .then((result) => console.log(result)))
       .catch((err) => console.log(err));
   }
   /*   

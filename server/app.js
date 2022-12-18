@@ -102,10 +102,10 @@ app.delete('/tasks/:id', async (req, res) => {
         JSON.stringify(currentTasks.filter((task) => task.id != id))
       );
       /* När den nya listan har skrivits till fil skickas ett success-response  */
-      res.send({ message: `Uppgift med id ${id} togs bort` });
+      res.send({ message: `Task with id: ${id}, is deleted` });
     } else {
       /* Om det inte fanns något i filen sedan tidigare skickas statuskod 404. 404 används här för att det betyder "Not found", och det stämmer att den uppgift som man ville ta bort inte kunde hittas om listan är tom. Vi har dock inte kontrollerat inuti en befintlig lista om det en uppgift med det id som man önskar ta bort faktiskt finns. Det hade man också kunnat göra. */
-      res.status(404).send({ error: 'Ingen uppgift att ta bort' });
+      res.status(404).send({ error: 'No task to delete.' });
     }
   } catch (error) {
     /* Om något annat fel uppstår, skickas statuskod 500, dvs. ett generellt serverfel, tillsammans med information om felet.  */
@@ -130,9 +130,9 @@ app.patch("/tasks/:id", async (req, res) => {
       });
 
       await fs.writeFile("./tasks.json", JSON.stringify(updatedList));
-      res.send({ message: `Uppgift med id ${id} uppdaterad` });
+      res.send({ message: `Task with id: ${id}, is updated.` });
     } else {
-      res.status(404).send({ error: "Ingen uppgift att uppdatera" });
+      res.status(404).send({ error: "No task to be updated." });
     }
   } catch (error) {
     res.status(500).send({ error: error.stack });
