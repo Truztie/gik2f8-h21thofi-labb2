@@ -241,20 +241,11 @@ function renderTask({ id, title, description, dueDate, completed}) {
           <style>
             input[type="checkbox"]:checked:before{
               content: "✔";
-              color: green;
               font-size: 14px;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-
             }
             input[type="checkbox"]:before{
               content: "✖";
               font-size: 14px;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-
             }
           </style>
         </div> 
@@ -308,10 +299,9 @@ function updateTask(id){
   if(checkBox.checked == true){
     const complete = {"completed": true};
     api.update(id, complete).then((result) => renderList());
-  }else if ( checkBox.checked == false){
+  }else{
     const unfinished = {"completed": false};
     api.update(id, unfinished).then((result) => renderList());
-  
   }
 }
 
