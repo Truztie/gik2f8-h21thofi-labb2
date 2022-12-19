@@ -315,11 +315,6 @@ function updateTask(id){
   }
 }
 
-function checkedStyling(){
-  const listItem = document.getElementById()
-  checkBox
-}
-
 /* Inuti funktionen kan ett objekt skickas till api-metoden update. Objektet ska som minst innehålla id på den uppgift som ska förändras, samt egenskapen completed som true eller false, beroende på om uppgiften markerades som färdig eller ofärdig i gränssnittet. 
 
 Det finns några sätt att utforma det som ska skickas till api.update-metoden. 
