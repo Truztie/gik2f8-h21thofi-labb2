@@ -117,7 +117,6 @@ app.patch("/tasks/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const updatedTask = req.body;
-
     const listBuffer = await fs.readFile("./tasks.json");
     const currentTasks = JSON.parse(listBuffer);
     if (currentTasks.length > 0) {
@@ -128,7 +127,6 @@ app.patch("/tasks/:id", async (req, res) => {
           return task;
         }
       });
-
       await fs.writeFile("./tasks.json", JSON.stringify(updatedList));
       res.send({ message: `Task with id: ${id}, is updated.` });
     } else {
