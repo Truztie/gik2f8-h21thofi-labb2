@@ -116,13 +116,13 @@ app.delete('/tasks/:id', async (req, res) => {
 app.patch("/tasks/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedTask = req.body;
+    const updatedData = req.body;
     const listBuffer = await fs.readFile("./tasks.json");
     const currentTasks = JSON.parse(listBuffer);
     if (currentTasks.length > 0) {
       const updatedList = currentTasks.map((task) => {
         if (task.id == id) {
-          return { ...task, ...updatedTask };
+          return { ...task, ...updatedData };
         } else {
           return task;
         }
